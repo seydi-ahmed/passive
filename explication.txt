@@ -1,5 +1,3 @@
-Bien sûr, je vais continuer en français. Si tu as des questions ou des points spécifiques que tu souhaites aborder concernant ton projet de reconnaissance passive, n'hésite pas à me le faire savoir ! Voici un récapitulatif de ce que nous avons discuté :
-
 ### 1. Compréhension de l'OSINT
 
 **L'Intelligence Artificielle à Source Ouverte (OSINT)** désigne la collecte et l'analyse d'informations provenant de sources publiques. Cela inclut :
