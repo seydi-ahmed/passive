@@ -11,6 +11,8 @@
 
 L'objectif est de rassembler des informations utiles sans intrusion active, ce qui est crucial lors des tests de pénétration.
 
+//**********************************************************************************************************************************
+
 ### 2. Aperçu du Projet
 
 Tu dois créer un outil en ligne de commande nommé `passive`, qui effectue une reconnaissance passive en fonction des entrées de l'utilisateur. L'outil doit gérer trois types d'entrées :
@@ -18,6 +20,8 @@ Tu dois créer un outil en ligne de commande nommé `passive`, qui effectue une 
 - Nom complet
 - Adresse IP
 - Nom d'utilisateur
+
+//**********************************************************************************************************************************
 
 ### 3. Fonctionnalités de l'Outil
 
@@ -41,9 +45,13 @@ L'outil doit accepter les options suivantes :
 3. **Recherche par Nom d'Utilisateur (`-u`)**
    - Vérifier si le nom d'utilisateur existe sur au moins cinq plateformes de réseaux sociaux.
 
+//**********************************************************************************************************************************
+
 ### 4. Mise en Œuvre
 
 Voici un exemple de structure en Python pour ton outil :
+
+//**********************************************************************************************************************************
 
 ```python
 import argparse
@@ -109,6 +117,8 @@ if __name__ == "__main__":
     main()
 ```
 
+//**********************************************************************************************************************************
+
 ### 5. Fichier README.md
 
 Il est important d'inclure un fichier `README.md` pour expliquer l'utilisation de ton programme. Voici un exemple :
@@ -129,6 +139,8 @@ cd passive_tool
 pip install -r requirements.txt
 ```
 
+//**********************************************************************************************************************************
+
 ### Commandes
 - **Recherche par Nom Complet :**
     ```
@@ -145,12 +157,15 @@ pip install -r requirements.txt
     python passive.py -u "@utilisateur"
     ```
 
+//**********************************************************************************************************************************
+
 ### Sortie
 Les résultats sont sauvegardés dans `resultat.txt` ou `resultat2.txt` si le fichier existe déjà.
 ```
 
-### 6. Checklist d'Audit
+//**********************************************************************************************************************************
 
+### 6. Checklist d'Audit
 Assure-toi que ton projet respecte les critères suivants :
 
 - **Explication des Méthodes Investigatives** : Prépare-toi à décrire comment chaque méthode fonctionne et les sources de données utilisées.
@@ -160,5 +175,4 @@ Assure-toi que ton projet respecte les critères suivants :
 - **Cas de Test** : Exécute les trois commandes fournies et explique les résultats.
 
 ### Conclusion
-
 En suivant ces étapes, tu seras en mesure de créer un outil de reconnaissance passive fonctionnel, tout en acquérant une expérience précieuse dans les techniques d'OSINT et les pratiques de cybersécurité. Si tu as des questions ou besoin de précisions sur un point particulier, fais-le moi savoir !
