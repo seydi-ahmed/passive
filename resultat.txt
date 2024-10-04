@@ -1,1 +1,0 @@
-{'adresse': '7 rue du Progrès, 75016 Paris', 'numero': '+33601010101'}
