@@ -30,3 +30,6 @@ git clone https://learn.zone01dakar.sn/git/mouhameddiouf/passive.git
 
 ### Sortie
 Les résultats sont sauvegardés dans `resultat.txt` ou `resultat2.txt` si le fichier existe déjà.
+
+### lien expliquant clairement "OSINT"
+https://guardia.school/boite-a-outils/quest-ce-que-losint.html
