@@ -15,17 +15,17 @@ git clone https://learn.zone01dakar.sn/git/mouhameddiouf/passive.git
 ### Commandes
 - **Recherche par Nom Complet :**
     ```
-    python passive.py -fn "Prénom Nom"
+    python3 passive.py -fn "Prénom Nom"
     ```
 
 - **Recherche par Adresse IP :**
     ```
-    python passive.py -ip "127.0.0.1"
+    python3 passive.py -ip "127.0.0.1"
     ```
 
 - **Recherche par Nom d'Utilisateur :**
     ```
-    python passive.py -u "@utilisateur"
+    python3 passive.py -u "@utilisateur"
     ```
 
 ### Sortie
