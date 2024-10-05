@@ -20,7 +20,7 @@ b)Are the required files present?
     Does the program display the ISP, and position for the entered IP address?
 
 8)Try flag "-u" with the following command passive -u "@user01"
-    Does the program check if the user entered is present in is present in at least 5 social networks?
-    Does the program retrieve this information from a public source?
-    Does the program save the result of each command in a result.txt file?
-    If the result.txt file already exists is a new file created?
+    a)Does the program check if the user entered is present in is present in at least 5 social networks?
+    b)Does the program retrieve this information from a public source?
+    c)Does the program save the result of each command in a result.txt file?
+    d)If the result.txt file already exists is a new file created?
