@@ -19,7 +19,7 @@ b) Are the required files present?
 7) Try flag "-ip" with the following command passive -ip 127.0.0.1
     Does the program display the ISP, and position for the entered IP address?
 
-8 )Try flag "-u" with the following command passive -u "@user01"
+8) Try flag "-u" with the following command passive -u "@user01"
     a) Does the program check if the user entered is present in is present in at least 5 social networks?
     b) Does the program retrieve this information from a public source?
     c) Does the program save the result of each command in a result.txt file?
