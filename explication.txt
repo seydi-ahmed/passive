@@ -15,7 +15,7 @@ L'objectif est de rassembler des informations utiles sans intrusion active, ce q
 
 ### 2. Aperçu du Projet
 
-Tu dois créer un outil en ligne de commande nommé `passive`, qui effectue une reconnaissance passive en fonction des entrées de l'utilisateur. L'outil doit gérer trois types d'entrées :
+Créer un outil en ligne de commande nommé `passive`, qui effectue une reconnaissance passive en fonction des entrées de l'utilisateur. L'outil doit gérer trois types d'entrées :
 
 - Nom complet
 - Adresse IP
