@@ -1,0 +1,1 @@
+{'Facebook': True, 'Twitter': True, 'LinkedIn': False, 'Instagram': False, 'Skype': False}
