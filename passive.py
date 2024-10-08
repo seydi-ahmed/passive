@@ -80,16 +80,19 @@ def search_username(username):
 #*************************save***********************************
 
 def save_to_file(filename, content):
-    # Vérifie si le fichier existe déjà
-    if os.path.exists(filename):
-        # On ajoute un '2' pour créer un nouveau fichier si besoin
-        base, extension = os.path.splitext(filename)
-        filename = f"{base}2{extension}"  # Par exemple, result.txt devient result2.txt
+    """
+    Enregistre le contenu dans le fichier spécifié. 
+    Si le fichier existe déjà, il sera écrasé.
     
+    :param filename: Nom du fichier où le contenu sera enregistré
+    :param content: Contenu à enregistrer dans le fichier
+    """
     with open(filename, 'w') as f:
         f.write(content)
     
     print(f"Saved in {filename}")
+
+
 
 #*************************main***********************************
 
