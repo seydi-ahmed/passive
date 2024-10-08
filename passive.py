@@ -15,12 +15,35 @@ def search_full_name(first_name, last_name):
  #*************************search_ip***********************************
 
 def search_ip(ip_address):
-    # Exemple de données fictives
-    isp = "FSociety, S.A."
-    city_lat_lon = "(13.731) / (-1.1373)"
+    # Utilisation de l'API ipinfo.io pour obtenir les informations de l'IP
+    url = f"https://ipinfo.io/{ip_address}/json"
     
-    result = f"ISP: {isp}\nCity Lat/Lon:\t{city_lat_lon}"
-    save_to_file("result2.txt", result)
+    try:
+        response = requests.get(url)
+        data = response.json()
+
+        # Vérification de l'existence de l'IP dans les données retournées
+        if 'ip' not in data or 'error' in data:
+            result = f"Error: Unable to retrieve information for IP {ip_address}"
+        else:
+            city = data.get('city', 'Unknown')
+            org = data.get('org', 'Unknown')  # Organisation ou ISP
+            loc = data.get('loc', 'Unknown').split(',')
+            lat = loc[0] if len(loc) > 0 else 'Unknown'
+            lon = loc[1] if len(loc) > 1 else 'Unknown'
+
+            result = (
+                f"ISP: {org}\n"
+                f"City: {city}\n"
+                f"Latitude/Longitude: ({lat}) / ({lon})"
+            )
+
+        # Enregistrement dans le fichier result2.txt
+        save_to_file("result2.txt", result)
+
+    except requests.exceptions.RequestException as e:
+        save_to_file("result2.txt", f"Error: {str(e)}")
+
 
 #*************************search_username***********************************
 
@@ -33,8 +56,8 @@ def search_username(username):
         "Github": f"https://www.github.com/{username}", #Nice
         "Youtube": f"https://www.youtube.com/{username}", #Nice
         "Instagram": f"https://www.instagram.com/{username}", #Nice
-        "Twitter": f"https://x.com/{username}",
-        "MySpace": f"https://www.myspace.com/{username}"
+        "Twitter": f"https://x.com/{username}", #Nice
+        "MySpace": f"https://www.myspace.com/{username}" #Nice
     }
     
     results = []
@@ -57,9 +80,11 @@ def search_username(username):
 #*************************save***********************************
 
 def save_to_file(filename, content):
-    # Vérifie si le fichier existe déjà et modifie le nom si c'est le cas
+    # Vérifie si le fichier existe déjà
     if os.path.exists(filename):
-        filename = "result2.txt" if filename == "result.txt" else "result3.txt"
+        # On ajoute un '2' pour créer un nouveau fichier si besoin
+        base, extension = os.path.splitext(filename)
+        filename = f"{base}2{extension}"  # Par exemple, result.txt devient result2.txt
     
     with open(filename, 'w') as f:
         f.write(content)
