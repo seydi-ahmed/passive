@@ -38,10 +38,10 @@ def sauvegarder_resultats(nom_fichier, donnees):
         fichier.write(str(donnees))
 
 def main():
-    parser = argparse.ArgumentParser(description='Outil de reconnaissance passive')
-    parser.add_argument('-fn', help='Recherche par nom complet')
-    parser.add_argument('-ip', help='Recherche par adresse IP')
-    parser.add_argument('-u', help='Recherche par nom d\'utilisateur')
+    parser = argparse.ArgumentParser(description='Welcome to passive v1.0.0')
+    parser.add_argument('-fn', help='Search with full-name')
+    parser.add_argument('-ip', help='Search with ip address')
+    parser.add_argument('-u', help='Search with username')
     args = parser.parse_args()
 
     if args.fn:
