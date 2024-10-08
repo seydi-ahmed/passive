@@ -1,61 +1,69 @@
 import argparse
-import requests
 import os
 
-def recherche_nom_complet(prenom, nom):
-    # Logique de recherche fictive (remplacer par des appels à des API réelles)
-    return {
-        "adresse": "7 rue du Progrès, 75016 Paris",
-        "numero": "+33601010101"
-    }
-
-def recherche_ip(ip):
-    # Appel d'API pour obtenir des informations sur l'ISP et la ville
-    response = requests.get(f"http://api.ipstack.com/{ip}?access_key=YOUR_ACCESS_KEY")
-    data = response.json()
-    return {
-        "ISP": data.get("connection", {}).get("isp"),
-        "ville": data.get("city"),
-        "lat": data.get("latitude"),
-        "lon": data.get("longitude")
-    }
-
-def recherche_utilisateur(utilisateur):
-    # Logique pour vérifier la présence sur les réseaux sociaux
-    plateformes = ["Facebook", "Twitter", "LinkedIn", "Instagram", "Skype"]
-    resultats = {plateforme: False for plateforme in plateformes}
-    # Vérifications simulées
-    resultats["Facebook"] = True  # Supposons trouvé
-    resultats["Twitter"] = True
-    return resultats
-
-def sauvegarder_resultats(nom_fichier, donnees):
-    # Gestion de la création de fichiers
-    if os.path.exists(nom_fichier):
-        nom_fichier = "resultat2.txt"
+def search_full_name(first_name, last_name):
+    # Exemple de données fictives
+    address = "7 rue du Progrès, 75016 Paris"
+    number = "+33601010101"
     
-    with open(nom_fichier, 'w') as fichier:
-        fichier.write(str(donnees))
+    result = f"First name: {first_name}\nLast name: {last_name}\nAddress: {address}\nNumber: {number}"
+    save_to_file("result.txt", result)
+
+def search_ip(ip_address):
+    # Exemple de données fictives
+    isp = "FSociety, S.A."
+    city_lat_lon = "(13.731) / (-1.1373)"
+    
+    result = f"ISP: {isp}\nCity Lat/Lon:\t{city_lat_lon}"
+    save_to_file("result2.txt", result)
+
+def search_username(username):
+    # Exemples de réseaux sociaux
+    platforms = {
+        "Facebook": True,
+        "Twitter": True,
+        "LinkedIn": True,
+        "Instagram": False,
+        "Skype": True
+    }
+    
+    result = "\n".join([f"{platform}: {'yes' if exists else 'no'}" for platform, exists in platforms.items()])
+    save_to_file("result3.txt", result)
+
+def save_to_file(filename, content):
+    # Vérifie si le fichier existe déjà et modifie le nom si c'est le cas
+    if os.path.exists(filename):
+        filename = "result2.txt" if filename == "result.txt" else "result3.txt"
+    
+    with open(filename, 'w') as f:
+        f.write(content)
+    
+    print(f"Saved in {filename}")
 
 def main():
     parser = argparse.ArgumentParser(description='Welcome to passive v1.0.0')
     parser.add_argument('-fn', help='Search with full-name')
-    parser.add_argument('-ip', help='Search with ip address')
+    parser.add_argument('-ip', help='Search with IP address')
     parser.add_argument('-u', help='Search with username')
+    
     args = parser.parse_args()
-
+    
     if args.fn:
-        prenom, nom = args.fn.split()
-        resultats = recherche_nom_complet(prenom, nom)
-        sauvegarder_resultats("resultat.txt", resultats)
-
+        name_parts = args.fn.split()
+        if len(name_parts) == 2:
+            first_name, last_name = name_parts
+            search_full_name(first_name, last_name)
+        else:
+            print("Please provide a valid full name in the format 'Last First'.")
+    
     elif args.ip:
-        resultats = recherche_ip(args.ip)
-        sauvegarder_resultats("resultat.txt", resultats)
-
+        search_ip(args.ip)
+    
     elif args.u:
-        resultats = recherche_utilisateur(args.u)
-        sauvegarder_resultats("resultat.txt", resultats)
+        search_username(args.u)
+    
+    else:
+        print("No valid option provided. Use --help for usage instructions.")
 
 if __name__ == "__main__":
     main()

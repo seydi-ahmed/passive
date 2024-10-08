@@ -34,6 +34,8 @@ Les résultats sont sauvegardés dans `resultat.txt` ou `resultat2.txt` si le fi
 ### voici un lien expliquant clairement "OSINT"
 https://guardia.school/boite-a-outils/quest-ce-que-losint.html
 
+************************************************************************************************************
+
 ### installer et utiliser sherlock
 #### installation
 - pip install sherlock-project
