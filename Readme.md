@@ -30,7 +30,7 @@ pip install requests
     ```
 
 ### Sortie
-Les résultats sont sauvegardés dans `resultat.txt` ou `resultat2.txt` si le fichier existe déjà.
+Les résultats sont sauvegardés dans `resultat.txt`, `resultat2.txt` et  `resultat3.txt`.
 
 ### voici un lien expliquant clairement "OSINT"
 https://guardia.school/boite-a-outils/quest-ce-que-losint.html

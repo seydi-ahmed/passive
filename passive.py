@@ -12,7 +12,7 @@ def search_full_name(first_name, last_name):
     result = f"First name: {first_name}\nLast name: {last_name}\nAddress: {address}\nNumber: {number}"
     save_to_file("result.txt", result)
 
- #*************************search_ip***********************************
+ #*************************search_ip*****************************************
 
 def search_ip(ip_address):
     # Utilisation de l'API ipinfo.io pour obtenir les informations de l'IP
@@ -80,13 +80,6 @@ def search_username(username):
 #*************************save***********************************
 
 def save_to_file(filename, content):
-    """
-    Enregistre le contenu dans le fichier spécifié. 
-    Si le fichier existe déjà, il sera écrasé.
-    
-    :param filename: Nom du fichier où le contenu sera enregistré
-    :param content: Contenu à enregistrer dans le fichier
-    """
     with open(filename, 'w') as f:
         f.write(content)
     
