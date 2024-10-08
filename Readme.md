@@ -10,6 +10,7 @@ Clone le dépôt:
 ```
 git clone https://learn.zone01dakar.sn/git/mouhameddiouf/passive.git
 pip install requests
+pip install requests beautifulsoup4
 ```
 
 

@@ -2,49 +2,53 @@ import argparse
 import os
 import requests
 from bs4 import BeautifulSoup
+import json
 
 #*************************search_full_name***********************************
 
 def search_full_name(first_name, last_name):
-    """
-    Recherche des informations sur une personne donnée par son prénom et son nom
-    en utilisant des moteurs de recherche.
-    
-    :param first_name: Prénom de la personne
-    :param last_name: Nom de la personne
-    """
-    full_name = f"{first_name} {last_name}"
-    query = f"{full_name} site:linkedin.com OR site:facebook.com OR site:github.com"
-
-    # Rechercher sur Google
-    search_url = f"https://www.google.com/search?q={requests.utils.quote(query)}"
-    
     try:
-        response = requests.get(search_url, headers={'User-Agent': 'Mozilla/5.0'})
-        response.raise_for_status()
+        # Appel à l'API randomuser.me pour générer des données fictives
+        response = requests.get('https://randomuser.me/api/')
         
-        # Analyse le contenu de la page
-        soup = BeautifulSoup(response.text, 'html.parser')
+        # Vérifie que la requête a réussi
+        if response.status_code == 200:
+            data = response.json()
+            user = data.get("results", [])[0]  # Prend le premier utilisateur généré
 
-        # Cherche les résultats
-        results = soup.find_all('h3')  # Exemple de recherche des titres de résultats
-
-        # Simuler la recherche d'informations supplémentaires
-        address = "Information d'adresse non trouvée"  # Remplacer par une recherche réelle si nécessaire
-        number = "Information de numéro non trouvée"    # Remplacer par une recherche réelle si nécessaire
-
-        # Formatage du résultat
-        result_text = (
-            f"First name: {first_name}\n"
-            f"Last name: {last_name}\n"
-            f"Address: {address}\n"
-            f"Number: {number}"
-        )
+            # Remplace le prénom et le nom générés par ceux fournis en entrée
+            user['name']['first'] = first_name
+            user['name']['last'] = last_name
+            
+            # Récupère et formate l'adresse
+            address = (
+                f"{user['location']['street']['number']} "
+                f"{user['location']['street']['name']}, "
+                f"{user['location']['city']}, "
+                f"{user['location']['state']}, "
+                f"{user['location']['country']} "
+                f"{user['location']['postcode']}"
+            )
+            
+            # Récupère le numéro de téléphone
+            phone = user.get("phone", "Information de numéro non trouvée")
+            
+            # Formate le résultat
+            result_text = (
+                f"First name: {first_name}\n"
+                f"Last name: {last_name}\n"
+                f"Address: {address}\n"
+                f"Number: {phone}"
+            )
+            
+            # Enregistre les informations dans result.txt
+            print(result_text)
+            save_to_file("result.txt", result_text)
+        else:
+            print(f"API request failed with status code: {response.status_code}")
     except requests.exceptions.RequestException as e:
-        result_text = f"Error during the search: {str(e)}"
+        print(f"An error occurred while calling the API: {e}")
 
-    # Enregistre dans result.txt
-    save_to_file("result.txt", result_text)
 
  #*************************search_ip*****************************************
 
@@ -73,6 +77,7 @@ def search_ip(ip_address):
             )
 
         # Enregistrement dans le fichier result2.txt
+        print(result)
         save_to_file("result2.txt", result)
 
     except requests.exceptions.RequestException as e:
@@ -109,6 +114,7 @@ def search_username(username):
             results.append(f"{platform}: error ({str(e)})")
     
     result = "\n".join(results)
+    print(result)
     save_to_file("result3.txt", result)
 
 #*************************save***********************************
