@@ -1,16 +1,50 @@
 import argparse
 import os
 import requests
+from bs4 import BeautifulSoup
 
 #*************************search_full_name***********************************
 
 def search_full_name(first_name, last_name):
-    # Exemple de données fictives
-    address = "7 rue du Progrès, 75016 Paris"
-    number = "+33601010101"
+    """
+    Recherche des informations sur une personne donnée par son prénom et son nom
+    en utilisant des moteurs de recherche.
     
-    result = f"First name: {first_name}\nLast name: {last_name}\nAddress: {address}\nNumber: {number}"
-    save_to_file("result.txt", result)
+    :param first_name: Prénom de la personne
+    :param last_name: Nom de la personne
+    """
+    full_name = f"{first_name} {last_name}"
+    query = f"{full_name} site:linkedin.com OR site:facebook.com OR site:github.com"
+
+    # Rechercher sur Google
+    search_url = f"https://www.google.com/search?q={requests.utils.quote(query)}"
+    
+    try:
+        response = requests.get(search_url, headers={'User-Agent': 'Mozilla/5.0'})
+        response.raise_for_status()
+        
+        # Analyse le contenu de la page
+        soup = BeautifulSoup(response.text, 'html.parser')
+
+        # Cherche les résultats
+        results = soup.find_all('h3')  # Exemple de recherche des titres de résultats
+
+        # Simuler la recherche d'informations supplémentaires
+        address = "Information d'adresse non trouvée"  # Remplacer par une recherche réelle si nécessaire
+        number = "Information de numéro non trouvée"    # Remplacer par une recherche réelle si nécessaire
+
+        # Formatage du résultat
+        result_text = (
+            f"First name: {first_name}\n"
+            f"Last name: {last_name}\n"
+            f"Address: {address}\n"
+            f"Number: {number}"
+        )
+    except requests.exceptions.RequestException as e:
+        result_text = f"Error during the search: {str(e)}"
+
+    # Enregistre dans result.txt
+    save_to_file("result.txt", result_text)
 
  #*************************search_ip*****************************************
 

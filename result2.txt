@@ -1,1 +1,3 @@
-Error: Unable to retrieve information for IP 41.82.712.2
+ISP: AS8346 SONATEL-AS Autonomous System
+City: Dakar
+Latitude/Longitude: (14.6937) / (-17.4441)
