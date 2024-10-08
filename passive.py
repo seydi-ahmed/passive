@@ -30,11 +30,11 @@ def search_username(username):
 
     # Liste des plateformes à vérifier
     platforms = {
-        "Facebook": f"https://www.facebook.com/{username}",
-        "Twitter": f"https://twitter.com/{username}",
-        "LinkedIn": f"https://www.linkedin.com/in/{username}",
-        "Instagram": f"https://www.instagram.com/{username}",
-        "Skype": f"https://join.skype.com/{username}"  # Skype ne fonctionne pas de la même manière
+        "Github": f"https://www.github.com/{username}", #Nice
+        "Youtube": f"https://www.youtube.com/{username}", #Nice
+        "Instagram": f"https://www.instagram.com/{username}", #Nice
+        "Twitter": f"https://x.com/{username}",
+        "MySpace": f"https://www.myspace.com/{username}"
     }
     
     results = []
