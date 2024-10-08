@@ -72,12 +72,12 @@ def search_ip(ip_address):
                 f"Latitude/Longitude: ({lat}) / ({lon})"
             )
 
-        # Enregistrement dans le fichier result2.txt
+        # Enregistrement dans le fichier
         print(result)
-        save_to_file("result2.txt", result)
+        save_to_file("result.txt", result)
 
     except requests.exceptions.RequestException as e:
-        save_to_file("result2.txt", f"Error: {str(e)}")
+        save_to_file("result.txt", f"Error: {str(e)}")
 
 
 #*************************search_username***********************************
@@ -111,17 +111,33 @@ def search_username(username):
     
     result = "\n".join(results)
     print(result)
-    save_to_file("result3.txt", result)
+    save_to_file("result.txt", result)
 
 #*************************save***********************************
 
 def save_to_file(filename, content):
+    """
+    Enregistre le contenu dans un fichier. Si le fichier existe déjà, 
+    incrémente le nom pour créer un fichier unique.
+    
+    :param filename: Nom initial du fichier (ex. "result.txt")
+    :param content: Contenu à écrire dans le fichier
+    """
+    # Vérifie si le fichier existe déjà
+    base_filename = filename.rsplit('.', 1)[0]  # Enlève l'extension .txt pour l'incrémentation
+    extension = '.txt'
+    counter = 1
+
+    # Incrémente le nom jusqu'à ce qu'un fichier disponible soit trouvé
+    while os.path.exists(filename):
+        filename = f"{base_filename}{counter}{extension}"
+        counter += 1
+
+    # Écrit le contenu dans le fichier trouvé
     with open(filename, 'w') as f:
         f.write(content)
     
     print(f"Saved in {filename}")
-
-
 
 #*************************main***********************************
 
