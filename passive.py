@@ -15,10 +15,6 @@ def search_full_name(first_name, last_name):
         if response.status_code == 200:
             data = response.json()
             user = data.get("results", [])[0]  # Prend le premier utilisateur généré
-
-            # Remplace le prénom et le nom générés par ceux fournis en entrée
-            user['name']['first'] = first_name
-            user['name']['last'] = last_name
             
             # Récupère et formate l'adresse
             address = (
