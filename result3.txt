@@ -1,0 +1,5 @@
+Facebook: yes
+Twitter: yes
+LinkedIn: yes
+Instagram: no
+Skype: yes

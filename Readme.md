@@ -9,6 +9,7 @@ Un outil en ligne de commande pour effectuer une reconnaissance passive à l'aid
 Clone le dépôt:
 ```
 git clone https://learn.zone01dakar.sn/git/mouhameddiouf/passive.git
+pip install requests
 ```
 
 

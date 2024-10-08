@@ -1,5 +1,8 @@
 import argparse
 import os
+import requests
+
+#*************************search_full_name***********************************
 
 def search_full_name(first_name, last_name):
     # Exemple de données fictives
@@ -9,6 +12,8 @@ def search_full_name(first_name, last_name):
     result = f"First name: {first_name}\nLast name: {last_name}\nAddress: {address}\nNumber: {number}"
     save_to_file("result.txt", result)
 
+ #*************************search_ip***********************************
+
 def search_ip(ip_address):
     # Exemple de données fictives
     isp = "FSociety, S.A."
@@ -17,18 +22,39 @@ def search_ip(ip_address):
     result = f"ISP: {isp}\nCity Lat/Lon:\t{city_lat_lon}"
     save_to_file("result2.txt", result)
 
+#*************************search_username***********************************
+
 def search_username(username):
-    # Exemples de réseaux sociaux
+    # Enlève le '@' au début du nom d'utilisateur, s'il est présent
+    username = username.lstrip('@')
+
+    # Liste des plateformes à vérifier
     platforms = {
-        "Facebook": True,
-        "Twitter": True,
-        "LinkedIn": True,
-        "Instagram": False,
-        "Skype": True
+        "Facebook": f"https://www.facebook.com/{username}",
+        "Twitter": f"https://twitter.com/{username}",
+        "LinkedIn": f"https://www.linkedin.com/in/{username}",
+        "Instagram": f"https://www.instagram.com/{username}",
+        "Skype": f"https://join.skype.com/{username}"  # Skype ne fonctionne pas de la même manière
     }
     
-    result = "\n".join([f"{platform}: {'yes' if exists else 'no'}" for platform, exists in platforms.items()])
+    results = []
+    
+    for platform, url in platforms.items():
+        try:
+            response = requests.get(url)
+            if response.status_code == 200:
+                results.append(f"{platform}: yes")
+            elif response.status_code == 404:
+                results.append(f"{platform}: no")
+            else:
+                results.append(f"{platform}: error ({response.status_code})")
+        except requests.exceptions.RequestException as e:
+            results.append(f"{platform}: error ({str(e)})")
+    
+    result = "\n".join(results)
     save_to_file("result3.txt", result)
+
+#*************************save***********************************
 
 def save_to_file(filename, content):
     # Vérifie si le fichier existe déjà et modifie le nom si c'est le cas
@@ -39,6 +65,8 @@ def save_to_file(filename, content):
         f.write(content)
     
     print(f"Saved in {filename}")
+
+#*************************main***********************************
 
 def main():
     parser = argparse.ArgumentParser(description='Welcome to passive v1.0.0')
