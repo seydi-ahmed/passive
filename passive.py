@@ -126,7 +126,7 @@ def save_to_file(filename, content):
     # Vérifie si le fichier existe déjà
     base_filename = filename.rsplit('.', 1)[0]  # Enlève l'extension .txt pour l'incrémentation
     extension = '.txt'
-    counter = 1
+    counter = 2
 
     # Incrémente le nom jusqu'à ce qu'un fichier disponible soit trouvé
     while os.path.exists(filename):
