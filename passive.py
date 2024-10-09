@@ -114,15 +114,8 @@ def search_username(username):
 #*************************save***********************************
 
 def save_to_file(filename, content):
-    """
-    Enregistre le contenu dans un fichier. Si le fichier existe déjà, 
-    incrémente le nom pour créer un fichier unique.
-    
-    :param filename: Nom initial du fichier (ex. "result.txt")
-    :param content: Contenu à écrire dans le fichier
-    """
     # Vérifie si le fichier existe déjà
-    base_filename = filename.rsplit('.', 1)[0]  # Enlève l'extension .txt pour l'incrémentation
+    base_filename = filename.rsplit('.')[0]  # Enlève l'extension .txt pour l'incrémentation
     extension = '.txt'
     counter = 2
 
