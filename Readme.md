@@ -70,3 +70,8 @@ git clone https://learn.zone01dakar.sn/git/mouhameddiouf/passive.git
 
 ### Sortie
 Les résultats sont sauvegardés dans `resultat.txt` ou dans un fichier similaire si ce dernier existe déjà.
+
+### Développeur:
+- Prénom Nom: Mouhamed Diouf
+- git: mouhameddiouf
+- email: seydiahmedelchikh@gmail.com
