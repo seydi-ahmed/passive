@@ -1,4 +1,0 @@
-First name: Prénom
-Last name: Nom
-Address: 7273 Avenida de América, Parla, Castilla y León, Spain 43092
-Number: 942-160-155
