@@ -1,7 +1,7 @@
 # PASSIVE (first cybersecurity project)
 
 
-## Compréhension de l'OSINT
+## Compréhension de l'OSINT:
 L'Intelligence Artificielle à Source Ouverte (OSINT) désigne la collecte et l'analyse d'informations provenant de sources publiques. Cela inclut :
 
 - Registres publics
@@ -10,22 +10,22 @@ L'Intelligence Artificielle à Source Ouverte (OSINT) désigne la collecte et l'
 - Articles d'actualité
 - etc.
 
-## Description
+## Description:
 Un outil en ligne de commande pour effectuer une reconnaissance passive à l'aide de méthodes d'intelligence à source ouverte. L'outil doit gérer trois types d'entrées :
 
 - Nom complet (Prénom Nom)
 - Adresse IP
 - Nom d'utilisateur
 
-## Utilisation
+## Utilisation:
 
-### Installation
+### Installation:
 Clone le dépôt:
 ```
 git clone https://learn.zone01dakar.sn/git/mouhameddiouf/passive.git
 ```
 
-### Commandes
+### Commandes:
 - **Recherche par Nom Complet :**
 - commande
     ```
@@ -68,7 +68,7 @@ git clone https://learn.zone01dakar.sn/git/mouhameddiouf/passive.git
     Saved in result3.txt
     ```
 
-### Sortie
+### Sortie:
 Les résultats sont sauvegardés dans `resultat.txt` ou dans un fichier similaire si ce dernier existe déjà.
 
 ### Développeur:
