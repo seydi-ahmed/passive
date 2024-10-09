@@ -1,7 +1,6 @@
 import argparse
 import os
 import requests
-from bs4 import BeautifulSoup
 import json
 
 #*************************search_full_name***********************************
@@ -45,8 +44,7 @@ def search_full_name(first_name, last_name):
     except requests.exceptions.RequestException as e:
         print(f"An error occurred while calling the API: {e}")
 
-
- #*************************search_ip*****************************************
+#*************************search_ip*****************************************
 
 def search_ip(ip_address):
     # Utilisation de l'API ipinfo.io pour obtenir les informations de l'IP

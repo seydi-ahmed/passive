@@ -1,4 +1,4 @@
-### 1. Compréhension de l'OSINT
+
 
 **L'Intelligence Artificielle à Source Ouverte (OSINT)** désigne la collecte et l'analyse d'informations provenant de sources publiques. Cela inclut :
 
