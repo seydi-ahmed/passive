@@ -27,7 +27,7 @@ git clone https://learn.zone01dakar.sn/git/mouhameddiouf/passive.git
 
 ### Commandes:
 - **Recherche par Nom Complet :**
-- commande
+- commande:
     ```
     python3 passive.py -fn "Prénom Nom"
     ```
@@ -41,7 +41,7 @@ git clone https://learn.zone01dakar.sn/git/mouhameddiouf/passive.git
     ```
 
 - **Recherche par Adresse IP :**
-- commande
+- commande:
     ```
     python3 passive.py -ip "adresseIp"
     ```
