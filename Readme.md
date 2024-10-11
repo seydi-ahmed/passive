@@ -78,13 +78,20 @@ Les résultats sont sauvegardés dans `resultat.txt` ou dans un fichier similair
 
 ****************************************************************************************
 
-## Sherlock
-### Installation
-- pip install sherlock-project
-- mettre sherlock dans le fichier bash
-```
-```
-- enregistrer
+## clé et token twitter
+### API Key
+r2ixicopIxoUWXyFoLpEOtlVr
+Copy
 
-### Utilisation
-- sherlock "username"
+### API Key Secret
+eo0HVa5UegQBmQmrX42fUmUuaXqwo00DVnSm3gQgRxhc9Zs3Dv
+Copy
+
+### Bearer Token
+AAAAAAAAAAAAAAAAAAAAALRpwQEAAAAAEWPjnGar9koRb%2FUFtL09XL40HnA%3Dy8DLcZyn4hEschtYTVLHtdHYN50xGrl1EOgYXA3bbx1oHqnDfK
+
+### Access Token
+1724534080316858368-SKzvy2bOfEUK0LOWianWmfgIC60fUn
+
+### Access Token Secret
+R4tIQCB18twvdM7l5CqCXjHbq9mBs6oMjb2glsCl3Gu3l

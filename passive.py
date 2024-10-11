@@ -80,48 +80,68 @@ def search_ip(ip_address):
 
 #*************************search_username***********************************
 
-import os
-import sherlock
-from pathlib import Path
-
 def search_username(username):
     # Enlève le '@' au début du nom d'utilisateur, s'il est présent
     username = username.lstrip('@')
+
+    # Liste des plateformes à vérifier
+    platforms = {
+        "Github": f"https://api.github.com/users/{username}", 
+        "Youtube": f"https://www.youtube.com/@{username}", 
+        "Instagram": f"https://www.instagram.com/{username}/", 
+        "Twitter": f"https://api.twitter.com/2/users/by/username/{username}", 
+        "MySpace": f"https://www.myspace.com/{username}" 
+    }
     
-    # Choisir les plateformes à vérifier
-    platforms = ["github", "instagram", "twitter", "facebook", "linkedin"]
     results = []
-
-    # Dossier pour les résultats
-    result_file = Path("result.txt")
-    result_file2 = Path("result2.txt")
-
-    # Lancer Sherlock pour l'utilisateur
-    print(f"Recherche de {username} sur les plateformes {platforms}...")
-    data = sherlock.sherlock(username, site_list=platforms, timeout=5, print_found_only=True)
-
-    # Analyser les résultats de Sherlock
-    for platform in platforms:
-        # Vérifier si le nom de la plateforme apparaît dans les résultats trouvés
-        found = any(platform in result.lower() for result in data.get(username, {}).keys())
-        result = f"{platform.capitalize()}: {'yes' if found else 'no'}"
-        results.append(result)
-
-    # Préparer le texte à écrire dans le fichier de résultats
-    result_text = "\n".join(results)
-
-    # Écrire dans le fichier de résultats approprié
-    if result_file.exists():
-        with open(result_file2, "w") as result_file2_handle:
-            result_file2_handle.write(result_text)
-        print(f"Résultats enregistrés dans {result_file2}")
-    else:
-        with open(result_file, "w") as result_file_handle:
-            result_file_handle.write(result_text)
-        print(f"Résultats enregistrés dans {result_file}")
-
-    # Afficher les résultats à l'écran pour le retour utilisateur
-    print(f"\nRésultats pour {username}:\n{result_text}")
+    
+    # Remplacez par vos vraies clés API Twitter
+    BEARER_TOKEN = "VOTRE_BEARER_TOKEN"
+    
+    for platform, url in platforms.items():
+        try:
+            if platform == "Github":
+                response = requests.get(url)
+                if response.status_code == 200:
+                    results.append(f"{platform}: yes")
+                elif response.status_code == 404:
+                    results.append(f"{platform}: no")
+                else:
+                    results.append(f"{platform}: error ({response.status_code})")
+            elif platform == "Youtube":
+                response = requests.get(url)
+                if response.status_code == 200:
+                    results.append(f"{platform}: yes")
+                elif response.status_code == 404:
+                    results.append(f"{platform}: no")
+                else:
+                    results.append(f"{platform}: error ({response.status_code})")
+            elif platform == "Twitter":
+                headers = {"Authorization": f"Bearer {BEARER_TOKEN}"}
+                response = requests.get(url, headers=headers)
+                if response.status_code == 200:
+                    results.append(f"{platform}: yes")
+                elif response.status_code == 404:
+                    results.append(f"{platform}: no")
+                else:
+                    results.append(f"{platform}: error ({response.status_code})")
+            else:  # Instagram et MySpace
+                response = requests.get(url)
+                if response.status_code == 200:
+                    # Pour Instagram, nous allons faire une vérification simple.
+                    # Note: le code d'accès 200 ne garantit pas que l'utilisateur existe, 
+                    # donc on pourrait vouloir faire une vérification supplémentaire ici.
+                    results.append(f"{platform}: yes (check needed)")
+                elif response.status_code == 404:
+                    results.append(f"{platform}: no")
+                else:
+                    results.append(f"{platform}: error ({response.status_code})")
+        except requests.exceptions.RequestException as e:
+            results.append(f"{platform}: error ({str(e)})")
+    
+    result = "\n".join(results)
+    print(result)
+    save_to_file("result.txt", result)
 
 #*************************save***********************************
 
