@@ -96,7 +96,7 @@ def search_username(username):
     results = []
     
     # Remplacez par vos vraies clés API Twitter
-    BEARER_TOKEN = "VOTRE_BEARER_TOKEN"
+    BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAALRpwQEAAAAAEWPjnGar9koRb%2FUFtL09XL40HnA%3Dy8DLcZyn4hEschtYTVLHtdHYN50xGrl1EOgYXA3bbx1oHqnDfK"
     
     for platform, url in platforms.items():
         try:
@@ -121,16 +121,11 @@ def search_username(username):
                 response = requests.get(url, headers=headers)
                 if response.status_code == 200:
                     results.append(f"{platform}: yes")
-                elif response.status_code == 404:
-                    results.append(f"{platform}: no")
                 else:
-                    results.append(f"{platform}: error ({response.status_code})")
+                    results.append(f"{platform}: no")
             else:  # Instagram et MySpace
                 response = requests.get(url)
                 if response.status_code == 200:
-                    # Pour Instagram, nous allons faire une vérification simple.
-                    # Note: le code d'accès 200 ne garantit pas que l'utilisateur existe, 
-                    # donc on pourrait vouloir faire une vérification supplémentaire ici.
                     results.append(f"{platform}: yes (check needed)")
                 elif response.status_code == 404:
                     results.append(f"{platform}: no")
