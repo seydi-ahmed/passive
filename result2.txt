@@ -1,5 +1,5 @@
-Github: no
+Github: yes
 Youtube: no
-Instagram: yes (check needed)
-Twitter: error (401)
+Instagram: yes
+Twitter: yes
 MySpace: no

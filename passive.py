@@ -2,6 +2,7 @@ import argparse
 import os
 import requests
 import json
+from bs4 import BeautifulSoup
 
 #*************************search_full_name***********************************
 
@@ -123,10 +124,25 @@ def search_username(username):
                     results.append(f"{platform}: yes")
                 else:
                     results.append(f"{platform}: no")
-            else:  # Instagram et MySpace
+            elif platform == "MySpace":
                 response = requests.get(url)
                 if response.status_code == 200:
-                    results.append(f"{platform}: yes (check needed)")
+                    results.append(f"{platform}: yes")
+                elif response.status_code == 404:
+                    results.append(f"{platform}: no")
+                else:
+                    results.append(f"{platform}: error ({response.status_code})")
+            elif platform == "Instagram":
+                response = requests.get(url)
+                if response.status_code == 200:
+                    # Utilisation de BeautifulSoup pour analyser la page
+                    soup = BeautifulSoup(response.text, 'html.parser')
+                    # Rechercher une image de profil
+                    profile_picture = soup.find('img', class_='be6sR')  # Classe de l'image de profil Instagram
+                    if profile_picture:
+                        results.append(f"{platform}: yes")
+                    else:
+                        results.append(f"{platform}: no")
                 elif response.status_code == 404:
                     results.append(f"{platform}: no")
                 else:
