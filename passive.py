@@ -80,36 +80,48 @@ def search_ip(ip_address):
 
 #*************************search_username***********************************
 
+import os
+import sherlock
+from pathlib import Path
+
 def search_username(username):
     # Enlève le '@' au début du nom d'utilisateur, s'il est présent
     username = username.lstrip('@')
-
-    # Liste des plateformes à vérifier
-    platforms = {
-        "Github": f"https://www.github.com/{username}", #Nice
-        "Youtube": f"https://www.youtube.com/{username}", #Nice
-        "Instagram": f"https://www.instagram.com/{username}", #Nice
-        "Twitter": f"https://x.com/{username}", #Nice
-        "MySpace": f"https://www.myspace.com/{username}" #Nice
-    }
     
+    # Choisir les plateformes à vérifier
+    platforms = ["github", "instagram", "twitter", "facebook", "linkedin"]
     results = []
-    
-    for platform, url in platforms.items():
-        try:
-            response = requests.get(url)
-            if response.status_code == 200:
-                results.append(f"{platform}: yes")
-            elif response.status_code == 404:
-                results.append(f"{platform}: no")
-            else:
-                results.append(f"{platform}: error ({response.status_code})")
-        except requests.exceptions.RequestException as e:
-            results.append(f"{platform}: error ({str(e)})")
-    
-    result = "\n".join(results)
-    print(result)
-    save_to_file("result.txt", result)
+
+    # Dossier pour les résultats
+    result_file = Path("result.txt")
+    result_file2 = Path("result2.txt")
+
+    # Lancer Sherlock pour l'utilisateur
+    print(f"Recherche de {username} sur les plateformes {platforms}...")
+    data = sherlock.sherlock(username, site_list=platforms, timeout=5, print_found_only=True)
+
+    # Analyser les résultats de Sherlock
+    for platform in platforms:
+        # Vérifier si le nom de la plateforme apparaît dans les résultats trouvés
+        found = any(platform in result.lower() for result in data.get(username, {}).keys())
+        result = f"{platform.capitalize()}: {'yes' if found else 'no'}"
+        results.append(result)
+
+    # Préparer le texte à écrire dans le fichier de résultats
+    result_text = "\n".join(results)
+
+    # Écrire dans le fichier de résultats approprié
+    if result_file.exists():
+        with open(result_file2, "w") as result_file2_handle:
+            result_file2_handle.write(result_text)
+        print(f"Résultats enregistrés dans {result_file2}")
+    else:
+        with open(result_file, "w") as result_file_handle:
+            result_file_handle.write(result_text)
+        print(f"Résultats enregistrés dans {result_file}")
+
+    # Afficher les résultats à l'écran pour le retour utilisateur
+    print(f"\nRésultats pour {username}:\n{result_text}")
 
 #*************************save***********************************
 

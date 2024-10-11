@@ -75,3 +75,16 @@ Les résultats sont sauvegardés dans `resultat.txt` ou dans un fichier similair
 - Prénom Nom: Mouhamed Diouf
 - git: mouhameddiouf
 - email: seydiahmedelchikh@gmail.com
+
+****************************************************************************************
+
+## Sherlock
+### Installation
+- pip install sherlock-project
+- mettre sherlock dans le fichier bash
+```
+```
+- enregistrer
+
+### Utilisation
+- sherlock "username"
