@@ -90,7 +90,7 @@ def search_username(username):
         "Github": f"https://api.github.com/users/{username}", 
         "Youtube": f"https://www.youtube.com/@{username}", 
         "Instagram": f"https://www.instagram.com/{username}/", 
-        "Twitter": f"https://api.twitter.com/2/users/by/username/{username}", 
+        "Twitter": f"https://www.x.com/{username}", 
         "MySpace": f"https://www.myspace.com/{username}" 
     }
     
@@ -137,9 +137,9 @@ def search_username(username):
                 if response.status_code == 200:
                     # Utilisation de BeautifulSoup pour analyser la page
                     soup = BeautifulSoup(response.text, 'html.parser')
-                    # Rechercher une image de profil
-                    profile_picture = soup.find('img', class_='be6sR')  # Classe de l'image de profil Instagram
-                    if profile_picture:
+                    # Rechercher l'élément de l'image de profil
+                    profile_image_button = soup.find('button', class_='xz74otr x972fbf xcfux6l x1qh')
+                    if profile_image_button:
                         results.append(f"{platform}: yes")
                     else:
                         results.append(f"{platform}: no")
@@ -153,6 +153,8 @@ def search_username(username):
     result = "\n".join(results)
     print(result)
     save_to_file("result.txt", result)
+
+# https://api.instagram.com/oauth/authorize?client_id={1478380669545095}&redirect_uri={redirect-uri}&scope=user_profile,user_media&response_type=code
 
 #*************************save***********************************
 
