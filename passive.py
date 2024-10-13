@@ -98,6 +98,7 @@ def search_username(username):
     
     # Remplacez par vos vraies clés API Twitter
     BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAALRpwQEAAAAAEWPjnGar9koRb%2FUFtL09XL40HnA%3Dy8DLcZyn4hEschtYTVLHtdHYN50xGrl1EOgYXA3bbx1oHqnDfK"
+    INSTAGRAM_TOKEN = ""
     
     for platform, url in platforms.items():
         try:
