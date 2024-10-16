@@ -85,20 +85,20 @@ def search_username(username):
     # Enlève le '@' au début du nom d'utilisateur, s'il est présent
     username = username.lstrip('@')
 
-    # Remplacez par vos vraies clés API Twitter et Instagram
-    BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAAA3CwQEAAAAAkCJgo0VOw8A4ZmoIFPCevyxjwwo%3DhbSVFRxLN9h8Mce3EItL4ezaJEERVuUJuUYMuZoTRnhm0lYbdz"
-    INSTAGRAM_TOKEN = "IGQWROZA1lZAb1dzaFlVLVpzbGtWUk9LNzU2cjJmZAW03VGdtOHRpSzZA3bWFUMl91T01BYkltR0FxV1FpZAWRUUHdhQmxOVkFyNlBuM2p0UUpEcGJMd3pjRXQ2b2xoT1cwblhYY3pkRTJpeDlUeGdsbEs1NVpjUnh0RUUZD"
-    
     # Liste des plateformes à vérifier
     platforms = {
         "Github": f"https://api.github.com/users/{username}",
         "Youtube": f"https://www.youtube.com/@{username}",
-        "Instagram": f"https://graph.instagram.com/me?fields=id,username&access_token={INSTAGRAM_TOKEN}",
+        "Instagram": f"https://www.instagram.com/{username}/",
         "Twitter": f"https://api.twitter.com/2/users/by/username/{username}",
         "MySpace": f"https://www.myspace.com/{username}"
     }
     
     results = []
+    
+    # Remplacez par vos vraies clés API Twitter et Instagram
+    BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAAA3CwQEAAAAAlxNNK%2FDMZdqlR7PPtuzJP163ocM%3DLzNl6dtog7GVdy0OPnAjbSsOFjr0DaCuEJZPebByHZQEnQ6QeV"
+    INSTAGRAM_TOKEN = "IGQWROZA1lZAb1dzaFlVLVpzbGtWUk9LNzU2cjJmZAW03VGdtOHRpSzZA3bWFUMl91T01BYkltR0FxV1FpZAWRUUHdhQmxOVkFyNlBuM2p0UUpEcGJMd3pjRXQ2b2xoT1cwblhYY3pkRTJpeDlUeGdsbEs1NVpjUnh0RUUZD"
     
     for platform, url in platforms.items():
         try:
@@ -119,17 +119,22 @@ def search_username(username):
                 else:
                     results.append(f"{platform}: error ({response.status_code})")
             elif platform == "Twitter":
+                # Vérifier la présence de l'utilisateur sur Twitter via l'API
                 headers = {"Authorization": f"Bearer {BEARER_TOKEN}"}
                 response = requests.get(url, headers=headers)
+                
                 if response.status_code == 200:
+                    # L'utilisateur existe si la réponse contient des données
                     data = response.json()
                     if 'data' in data:
                         results.append(f"{platform}: yes")
                     else:
-                        results.append(f"{platform}: no, user data not found")
+                        results.append(f"{platform}: no")
                 elif response.status_code == 404:
+                    # Utilisateur non trouvé
                     results.append(f"{platform}: no")
                 else:
+                    # Autres codes de statut : erreur
                     results.append(f"{platform}: error ({response.status_code})")
             elif platform == "MySpace":
                 response = requests.get(url)
@@ -140,24 +145,21 @@ def search_username(username):
                 else:
                     results.append(f"{platform}: error ({response.status_code})")
             elif platform == "Instagram":
-                # Utiliser l'API Instagram Graph pour vérifier le username
-                user_info_url = f"https://graph.instagram.com/me?fields=id,username&access_token={INSTAGRAM_TOKEN}"
-                response = requests.get(user_info_url)
+                response = requests.get(url)
                 
-                print(response.status_code)
-
                 if response.status_code == 200:
+                    soup = BeautifulSoup(response.text, 'html.parser')
+                    title = soup.find('title')
+                    if title and username.lower() in title.text.lower():
                         results.append(f"{platform}: yes")
-
-                    # user_data = response.json()
-                    # if user_data.get('username', '').lower() == username.lower():
-                    #     results.append(f"{platform}: yes")
-                #     else:
-                #         results.append(f"{platform}: no")
-                # elif response.status_code == 404:
-                #     results.append(f"{platform}: no")
-                else:
+                    elif title and "Page Not Found" in title.text:
+                        results.append(f"{platform}: no")
+                    else:
+                        results.append(f"{platform}: uncertain")
+                elif response.status_code == 404:
                     results.append(f"{platform}: no")
+                else:
+                    results.append(f"{platform}: error ({response.status_code})")
         except requests.exceptions.RequestException as e:
             results.append(f"{platform}: error ({str(e)})")
     
