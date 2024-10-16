@@ -1,5 +1,0 @@
-Github: yes
-Youtube: yes
-Instagram: yes
-Twitter: error (401)
-MySpace: no

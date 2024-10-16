@@ -3,6 +3,7 @@ import os
 import requests
 import json
 from bs4 import BeautifulSoup
+import time
 
 #*************************search_full_name***********************************
 
@@ -90,14 +91,14 @@ def search_username(username):
         "Github": f"https://api.github.com/users/{username}",
         "Youtube": f"https://www.youtube.com/@{username}",
         "Instagram": f"https://www.instagram.com/{username}/",
-        "Twitter": f"https://api.twitter.com/2/users/by/username/{username}",
+        "Reddit": f"https://www.reddit.com/user/{username}/about.json",
         "MySpace": f"https://www.myspace.com/{username}"
     }
     
     results = []
     
     # Remplacez par vos vraies clés API Twitter et Instagram
-    BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAAA3CwQEAAAAAlxNNK%2FDMZdqlR7PPtuzJP163ocM%3DLzNl6dtog7GVdy0OPnAjbSsOFjr0DaCuEJZPebByHZQEnQ6QeV"
+    BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAAA3CwQEAAAAAilAee1FzUbV%2Bseg9Ax32Tk0rTEM%3DDIR5QsE694bTwA9Y3IuLPQQpaoGloRc21WjpCNFiI1OCbIKkj2"
     INSTAGRAM_TOKEN = "IGQWROZA1lZAb1dzaFlVLVpzbGtWUk9LNzU2cjJmZAW03VGdtOHRpSzZA3bWFUMl91T01BYkltR0FxV1FpZAWRUUHdhQmxOVkFyNlBuM2p0UUpEcGJMd3pjRXQ2b2xoT1cwblhYY3pkRTJpeDlUeGdsbEs1NVpjUnh0RUUZD"
     
     for platform, url in platforms.items():
@@ -118,23 +119,15 @@ def search_username(username):
                     results.append(f"{platform}: no")
                 else:
                     results.append(f"{platform}: error ({response.status_code})")
-            elif platform == "Twitter":
-                # Vérifier la présence de l'utilisateur sur Twitter via l'API
-                headers = {"Authorization": f"Bearer {BEARER_TOKEN}"}
+            elif platform == "Reddit":
+                headers = {'User-Agent': 'MyRedditApp/0.1'}
                 response = requests.get(url, headers=headers)
                 
                 if response.status_code == 200:
-                    # L'utilisateur existe si la réponse contient des données
-                    data = response.json()
-                    if 'data' in data:
-                        results.append(f"{platform}: yes")
-                    else:
-                        results.append(f"{platform}: no")
+                    results.append(f"{platform}: yes")
                 elif response.status_code == 404:
-                    # Utilisateur non trouvé
                     results.append(f"{platform}: no")
                 else:
-                    # Autres codes de statut : erreur
                     results.append(f"{platform}: error ({response.status_code})")
             elif platform == "MySpace":
                 response = requests.get(url)
@@ -155,7 +148,7 @@ def search_username(username):
                     elif title and "Page Not Found" in title.text:
                         results.append(f"{platform}: no")
                     else:
-                        results.append(f"{platform}: uncertain")
+                        results.append(f"{platform}: no")
                 elif response.status_code == 404:
                     results.append(f"{platform}: no")
                 else:
