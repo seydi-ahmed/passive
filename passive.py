@@ -58,7 +58,8 @@ def search_ip(ip_address):
 
         # Vérification de l'existence de l'IP dans les données retournées
         if 'ip' not in data or 'error' in data:
-            result = f"Error: Unable to retrieve information for IP {ip_address}"
+            print("this ip addres {ip_address} doesn't exist")
+            return
         else:
             city = data.get('city', 'Unknown')
             org = data.get('org', 'Unknown')  # Organisation ou ISP
