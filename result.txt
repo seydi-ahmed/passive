@@ -1,5 +1,5 @@
 Github: yes
-Youtube: no
+Youtube: yes
 Instagram: yes
-Twitter: yes
+Reddit: yes
 MySpace: yes

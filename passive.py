@@ -89,7 +89,7 @@ def search_username(username):
     # Liste des plateformes à vérifier
     platforms = {
         "Github": f"https://api.github.com/users/{username}",
-        "Youtube": f"https://www.youtube.com/@{username}",
+        "Youtube": f"https://www.youtube.com/{username}",
         "Instagram": f"https://www.instagram.com/{username}/",
         "Reddit": f"https://www.reddit.com/user/{username}/about.json",
         "MySpace": f"https://www.myspace.com/{username}"
