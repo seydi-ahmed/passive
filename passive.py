@@ -85,20 +85,20 @@ def search_username(username):
     # Enlève le '@' au début du nom d'utilisateur, s'il est présent
     username = username.lstrip('@')
 
+    # Remplacez par vos vraies clés API Twitter et Instagram
+    BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAAA3CwQEAAAAAkCJgo0VOw8A4ZmoIFPCevyxjwwo%3DhbSVFRxLN9h8Mce3EItL4ezaJEERVuUJuUYMuZoTRnhm0lYbdz"
+    INSTAGRAM_TOKEN = "IGQWROZA1lZAb1dzaFlVLVpzbGtWUk9LNzU2cjJmZAW03VGdtOHRpSzZA3bWFUMl91T01BYkltR0FxV1FpZAWRUUHdhQmxOVkFyNlBuM2p0UUpEcGJMd3pjRXQ2b2xoT1cwblhYY3pkRTJpeDlUeGdsbEs1NVpjUnh0RUUZD"
+    
     # Liste des plateformes à vérifier
     platforms = {
-        "Github": f"https://api.github.com/users/{username}", 
-        "Youtube": f"https://www.youtube.com/@{username}", 
-        "Instagram": f"https://www.instagram.com/{username}/", 
-        "Twitter": f"https://www.x.com/{username}", 
-        "MySpace": f"https://www.myspace.com/{username}" 
+        "Github": f"https://api.github.com/users/{username}",
+        "Youtube": f"https://www.youtube.com/@{username}",
+        "Instagram": f"https://graph.instagram.com/me?fields=id,username&access_token={INSTAGRAM_TOKEN}",
+        "Twitter": f"https://api.twitter.com/2/users/by/username/{username}",
+        "MySpace": f"https://www.myspace.com/{username}"
     }
     
     results = []
-    
-    # Remplacez par vos vraies clés API Twitter
-    BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAAA3CwQEAAAAAkCJgo0VOw8A4ZmoIFPCevyxjwwo%3DhbSVFRxLN9h8Mce3EItL4ezaJEERVuUJuUYMuZoTRnhm0lYbdz"
-    INSTAGRAM_TOKEN = "IGQWROZA1lZAb1dzaFlVLVpzbGtWUk9LNzU2cjJmZAW03VGdtOHRpSzZA3bWFUMl91T01BYkltR0FxV1FpZAWRUUHdhQmxOVkFyNlBuM2p0UUpEcGJMd3pjRXQ2b2xoT1cwblhYY3pkRTJpeDlUeGdsbEs1NVpjUnh0RUUZD"
     
     for platform, url in platforms.items():
         try:
@@ -122,9 +122,15 @@ def search_username(username):
                 headers = {"Authorization": f"Bearer {BEARER_TOKEN}"}
                 response = requests.get(url, headers=headers)
                 if response.status_code == 200:
-                    results.append(f"{platform}: yes")
-                else:
+                    data = response.json()
+                    if 'data' in data:
+                        results.append(f"{platform}: yes")
+                    else:
+                        results.append(f"{platform}: no, user data not found")
+                elif response.status_code == 404:
                     results.append(f"{platform}: no")
+                else:
+                    results.append(f"{platform}: error ({response.status_code})")
             elif platform == "MySpace":
                 response = requests.get(url)
                 if response.status_code == 200:
@@ -134,13 +140,13 @@ def search_username(username):
                 else:
                     results.append(f"{platform}: error ({response.status_code})")
             elif platform == "Instagram":
-                response = requests.get(url)
+                # Utiliser l'API Instagram Graph pour vérifier le username
+                user_info_url = f"https://graph.instagram.com/me?fields=id,username&access_token={INSTAGRAM_TOKEN}"
+                response = requests.get(user_info_url)
+                
                 if response.status_code == 200:
-                    # Utilisation de BeautifulSoup pour analyser la page
-                    soup = BeautifulSoup(response.text, 'html.parser')
-                    # Rechercher l'élément de l'image de profil
-                    profile_image_button = soup.find('button', class_='xz74otr x972fbf xcfux6l x1qh')
-                    if profile_image_button:
+                    user_data = response.json()
+                    if user_data.get('username', '').lower() == username.lower():
                         results.append(f"{platform}: yes")
                     else:
                         results.append(f"{platform}: no")

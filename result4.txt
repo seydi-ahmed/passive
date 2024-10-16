@@ -1,3 +1,0 @@
-ISP: AS7018 AT&T Services, Inc.
-City: Rochester
-Latitude/Longitude: (43.1548) / (-77.6156)
