@@ -144,16 +144,20 @@ def search_username(username):
                 user_info_url = f"https://graph.instagram.com/me?fields=id,username&access_token={INSTAGRAM_TOKEN}"
                 response = requests.get(user_info_url)
                 
+                print(response.status_code)
+
                 if response.status_code == 200:
-                    user_data = response.json()
-                    if user_data.get('username', '').lower() == username.lower():
                         results.append(f"{platform}: yes")
-                    else:
-                        results.append(f"{platform}: no")
-                elif response.status_code == 404:
-                    results.append(f"{platform}: no")
+
+                    # user_data = response.json()
+                    # if user_data.get('username', '').lower() == username.lower():
+                    #     results.append(f"{platform}: yes")
+                #     else:
+                #         results.append(f"{platform}: no")
+                # elif response.status_code == 404:
+                #     results.append(f"{platform}: no")
                 else:
-                    results.append(f"{platform}: error ({response.status_code})")
+                    results.append(f"{platform}: no")
         except requests.exceptions.RequestException as e:
             results.append(f"{platform}: error ({str(e)})")
     
